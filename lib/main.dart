@@ -51,31 +51,46 @@ class _CzytanieStronaState extends State<CzytanieStrona> {
 
   void start() {
     timer?.cancel();
-    double sekundyNaPare = 60 / bpm;
+    double sekundyNaSlowo = 60 / bpm;
+    double sekundyNaPare = sekundyNaSlowo * 2;
     double elapsed = 0.0;
+    bool secondBeepPlayed = false;
+
+    _playBeep(); // pierwszy beep na start pary
+
     timer = Timer.periodic(updateInterval, (t) {
       setState(() {
         elapsed += updateInterval.inMilliseconds / 1000.0;
         postep = (elapsed / sekundyNaPare).clamp(0.0, 1.0);
+
+        if (!secondBeepPlayed && elapsed >= sekundyNaPare / 2) {
+          _playBeep();
+          secondBeepPlayed = true;
+        }
+
         if (elapsed >= sekundyNaPare) {
           indeks++;
           elapsed = 0.0;
           postep = 0.0;
-          _playBeep();
+          secondBeepPlayed = false;
+
           if (indeks >= parySlow.length) {
             timer?.cancel();
             isRunning = false;
+          } else {
+            _playBeep(); // pierwszy beep następnej pary
           }
         }
       });
     });
+
     setState(() {
       isRunning = true;
     });
   }
 
   void _playBeep() async {
-    await _audioPlayer.play(AssetSource('sounds/metronome.mp3'));
+    await _audioPlayer.play(AssetSource('metronome.mp3'));
   }
 
   void stop() {
