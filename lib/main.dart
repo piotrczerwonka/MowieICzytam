@@ -37,7 +37,8 @@ class _CzytanieStronaState extends State<CzytanieStrona> {
 
   int indeks = 0;
   Timer? timer;
-  double bpm = 80;
+  final double maxBPM = 160;
+  double bpm = 60;
   bool isRunning = false;
   double postep = 0.0;
   final updateInterval = Duration(milliseconds: 100);
@@ -202,8 +203,8 @@ class _CzytanieStronaState extends State<CzytanieStrona> {
                 Slider(
                   value: bpm,
                   min: 20,
-                  max: 80,
-                  divisions: 60,
+                  max: maxBPM,
+                  divisions: (maxBPM - 20).toInt(),
                   label: bpm.round().toString(),
                   onChanged: (value) => updateBPM(value),
                 ),
