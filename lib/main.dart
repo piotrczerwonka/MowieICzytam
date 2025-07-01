@@ -141,7 +141,7 @@ class _CzytanieStronaState extends State<CzytanieStrona> {
           Expanded(
             child: LayoutBuilder(
               builder: (context, constraints) {
-                double availableHeight = constraints.maxHeight - 100;
+                double availableHeight = constraints.maxHeight - 80;
                 double itemHeight = availableHeight / 10;
                 return ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
@@ -172,7 +172,7 @@ class _CzytanieStronaState extends State<CzytanieStrona> {
                           ),
                           Container(
                             margin: EdgeInsets.symmetric(vertical: 2),
-                            padding: EdgeInsets.all(16),
+                            padding: EdgeInsets.all(10),
                             decoration: BoxDecoration(
                               color: aktywna ? Colors.blueAccent.withValues(alpha: 0.5) : Colors.grey[200],
                               borderRadius: BorderRadius.circular(12),
@@ -181,7 +181,7 @@ class _CzytanieStronaState extends State<CzytanieStrona> {
                               child: Text(
                                 '${widocznePary[i][0]} – ${widocznePary[i][1]}',
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 14,
                                   color: aktywna ? Colors.white : Colors.black87,
                                   fontWeight: aktywna ? FontWeight.bold : FontWeight.normal,
                                 ),
